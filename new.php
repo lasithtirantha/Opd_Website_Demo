@@ -1,3 +1,23 @@
+<?php
+session_start();
+
+//if $_SESSION['authuser'] is not set -> set to 0
+if (!isset($_SESSION['authuser'])) {
+    $_SESSION['authuser'] = 0;
+}
+
+//if authuser not equal to 1 -> redirect to login page
+if ($_SESSION['authuser'] == 0) {
+    header("Location:login.php");
+    exit();
+}
+if ($_SESSION['authuser'] == 2) {
+    header("Location:login.php");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -5,13 +25,13 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <!--script src="JS/javascript.js"></script-->
-        <title> ABC Hospital OPD - Home </title>
+        <title> ABC Hospital OPD - New Patient </title>
         <style>
             td{
                 font-family: calibri;
             }
             fieldset{
-                background: rgba(153, 204, 255, 0.3);
+                background: rgba(153, 204, 255, 0.2);
                 border-radius:6px 6px 6px 6px;
             }
         </style>
@@ -19,15 +39,35 @@
 
     <body>
         <header>
+            <!--Div for Hospital Logo-->
             <div id="logo-hospital">
                 <a href="index.php"><img id="img-hospital" alt="Hospital Logo" src="Image\hospital.png" style="float:left"></a>				
             </div>
+            
+            <!--Div for OPD Logo-->
             <div id="logo-opd">
                 <img id="img-opd" src="Image\logo.png" alt="OPD Logo" style="float:right;padding-top:5px">
             </div>
+            
+            <!--Text to Display User Information on right-top corner-->
+            <p style="color:white;font-size:16px;text-align:right;padding-right:5px;margin:0px"> 
+                <?php
+                //If the User is logged In -> Display "Username", Otherwise -> Display "Not Logged In"
+                if ($_SESSION['authuser'] == 0) {
+                    echo 'User : Not Logged In';
+                }
+                if ($_SESSION['authuser'] == 1) {
+                    echo 'User : ' . $_SESSION['username'];
+                }
+                if ($_SESSION['authuser'] == 2) {
+                    echo 'User : Not Logged In';
+                }
+                ?>
+            </p>
         </header>
 
         <nav>
+            <!--Unordered List for Horizontal Navigation Menu-->
             <ul id="navmenu">
                 <li class="nav" style="float:left;padding-left:25px;"><a href="index.php"> &#127968; HOME</a></li>
                 <li class="dropdown"style="float:left"><a href="javascript:void(0)" class="dropbtn"> &#128113; PATIENT </a>
@@ -35,7 +75,7 @@
                         <a href="new.php"> &#127381; NEW PATIENT </a>
                         <a href="search.php"> &#128269; SEARCH PATIENT </a>
                     </div></li>
-                <li class="dropdown" style="float:left"><a href="javascript:void(0)" class="dropbtn"> &#127760; USEFUL LINKS</a>
+                <li class="dropdown" style="float:left"><a href="javascript:void(0)" class="dropbtn"> &#127760; WEB LINKS</a>
                     <div class="dropdown-content">
                         <a href="http://health.gov.lk/" target="_blank"> &#10010; MINISTRY OF HEALTH </a>
                         <a href="http://www.epid.gov.lk/" target="_blank"> &#128137; EPID UNIT</a>
@@ -44,66 +84,81 @@
                     </div></li>
                 <li class="nav" style="float:left"><a href="about.php"> &#128107; ABOUT US </a></li>
                 <li class="nav" style="float:left"><a href="contact.php"> &#128241; CONTACT </a></li>
-                <li class="nav" style="float:right;padding-right:25px"><a href="login.php"> &#128100; LOG-IN </a></li>
+                <li class="nav" style="float:right;padding-right:25px"><a href="login.php"> &#128100; 
+                        <?php
+                        // to show log in or out according to the whether logged in or not
+                        if ($_SESSION['authuser'] == 0) {
+                            echo 'LOG IN';
+                        }
+                        if ($_SESSION['authuser'] == 1) {
+                            echo 'LOG OUT';
+                        }
+                        if ($_SESSION['authuser'] == 2) {
+                            echo 'LOG IN';
+                        }
+                        ?> </a></li>
                 <li class="nav" style="float:right"><a href="register.php"> &#128100; REGISTER </a></li>
             </ul>
         </nav>
+        
+        <!--Div for Sidebar on Left + Middle Section + Sidebar on Right-->
         <div style="position:relative">
-        <aside id="sidebar-l" style="float:left">
-            <br>
-            <h4 style="text-align:center" class="asideheading"> Related Links </h4>
-            <ul style="list-style-image:url('Image/bullet.gif');line-height:25px">
-                <li class="aside"> <a href="http://www.health.gov.lk/" target="_blank"> Ministry of Health </a></li>
-                <li class="aside"> <a href="http://www.epid.gov.lk/" target="_blank"> Epidemiology Unit </a></li>
-                <li class="aside"> <a href="http://www.fhb.health.gov.lk/" target="_blank"> Family Health Bureau </a></li>
-                <li class="aside"> <a href="http://www.malariacampaign.gov.lk/" target="_blank"> Anti-malaria Campaign </a></li>
-                <li class="aside"> <a href="http://www.nptccd.health.gov.lk/" target="_blank"> Tuberculosis Control Programme </a></li>
-                <li class="aside"> <a href="http://www.pgim.cmb.ac.lk/" target="_blank"> PGIM </a></li>
-            </ul>
-            <br>
-            <h4 style="text-align:center" class="asideheading"> Useful Links </h4>
-            <ul style="list-style-image:url('Image/bullet.gif');line-height:25px">
+            <aside id="sidebar-l" style="float:left">
+                <br>
+                <h4 style="text-align:center" class="asideheading"> Related Links </h4>
+                <ul style="list-style-image:url('Image/bullet.gif');line-height:25px">
+                    <li class="aside"> <a href="http://www.health.gov.lk/" target="_blank"> Ministry of Health </a></li>
+                    <li class="aside"> <a href="http://www.epid.gov.lk/" target="_blank"> Epidemiology Unit </a></li>
+                    <li class="aside"> <a href="http://www.fhb.health.gov.lk/" target="_blank"> Family Health Bureau </a></li>
+                    <li class="aside"> <a href="http://www.malariacampaign.gov.lk/" target="_blank"> Anti-malaria Campaign </a></li>
+                    <li class="aside"> <a href="http://www.nptccd.health.gov.lk/" target="_blank"> Tuberculosis Control Programme </a></li>
+                    <li class="aside"> <a href="http://www.pgim.cmb.ac.lk/" target="_blank"> PGIM </a></li>
+                </ul>
+                <br>
+                <h4 style="text-align:center" class="asideheading"> Useful Links </h4>
+                <ul style="list-style-image:url('Image/bullet.gif');line-height:25px">
                     <li class="aside"> <a href="https://www.google.lk" target="_blank"> Google </a></li>
                     <li class="aside"> <a href="https://www.yahoo.com" target="_blank"> Yahoo! </a></li>
                     <li class="aside"> <a href="https://www.wikipedia.org" target="_blank"> Wikipedia </a></li>
                     <li class="aside"> <a href="https://www.facebook.com" target="_blank"> Facebook </a></li>
                     <li class="aside"> <a href="https://www.twitter.com" target="_blank"> Twitter </a></li>
-            </ul>
-	</aside>
-        
-        <section style="padding-left:10px;padding-right:10px">
-            <h3> New Patient </h3>
-            <fieldset> 
-            <table>
-                    <tr><td width="250px">1. First Name* </td><td> : </td><td> <input type="text" name="f_name" placeholder="eg: Wilbert" size="30" required> </td></tr>
-                    <tr><td>2. Last Name* </td><td> : </td><td> <input type="text" name="l_name_name" placeholder="eg: Silva" size="30" required> </td></tr>
-                    <tr><td>3. Date of Birth </td><td> : </td><td> <input type="date" name="d_o_b" required> </td></tr>
-                    <tr><td>4. Sex </td><td> : </td><td> <input type="radio" name="sex" value="Male"> Male <input type="radio" name="sex" value="Female"> Female </td></tr>
-                    <tr><td>5. Address </td><td> : </td><td> <input type="text" name="address" placeholder="eg: No.112/1A, Maharagama " size="30" required> </td></tr>
-                    <tr><td>6. NIC Number </td><td> : </td><td> <input type="text" name="nic" maxlength="12" placeholder="eg: 99xxxxxxxV/2000xxxxxxxV" size="30"> </td></tr>
-                    <tr><td>7. Mobile Number </td><td> : </td><td> <input type="tel" name="mobile" maxlength="10" pattern="[0-9]{10}" placeholder="10 Digit Number" size="30"> </td></tr>
-                    <tr><td>8. Home Phone </td><td> : </td><td> <input type="tel" name="home" maxlength="10" pattern="[0-9]{10}" placeholder="10 Digit Number" size="30"> </td></tr>
-                    <tr><td>9. Email </td><td> : </td><td> <input type="email" name="email" placeholder="eg: example@mail.com" size="30"> </td></tr>
-                    <tr><td>10. History/Symptoms </td><td> : </td><td> <input type="text" name="hx" placeholder="eg: Fever x 5d" size="30"> </td></tr>
-                    <tr><td>11. Past History </td><td> : </td><td> <input type="text" name="pasthx" placeholder="eg: DM+ HT+" size="30"> </td></tr>
-                    <tr><td>12. Allergy History </td><td> : </td><td> <input type="text" name="allergy" placeholder="eg: Penicillin Allergy" size="30"> </td></tr>
-                    <tr><td>13. Investigation Results </td><td> : </td><td> <input type="text" name="ix" placeholder="eg: PLT = 30,000" size="30"> </td></tr>
-                    <tr><td>14. Management/Treatment </td><td> : </td><td> <input type="text" name="mx" placeholder="eg: Dengue Ag + ve" size="30"> </td></tr>
-                    <tr><td>15. Special Notes </td><td> : </td><td> <input type="text" name="notes" placeholder="eg: Vision Impairment" size="30"> </td></tr>
-            </table>
-            </fieldset>
-            <br>
-            <input type="button" onclick="alert('Warning!!! You will loose your typed Data')" value="New">
-            <input type="reset" onclick="alert('Warning!!! This will reset your typed Data')">
-            <input type="submit" value="Submit">
-        </section>
+                </ul>
+            </aside>
 
-        <aside id="sidebar-r" style="float:right">
-            <img src="Image/ad1.gif" alt="ad1" style="position:absolute">
-	</aside>
+            <section style="padding-left:10px;padding-right:10px">
+                <h3> New Patient </h3>
+                <fieldset> 
+                    <table>
+                        <tr><td width="250px">1. First Name* </td><td> : </td><td> <input type="text" name="f_name" placeholder="eg: Wilbert" size="30" required> </td></tr>
+                        <tr><td>2. Last Name* </td><td> : </td><td> <input type="text" name="l_name_name" placeholder="eg: Silva" size="30" required> </td></tr>
+                        <tr><td>3. Date of Birth </td><td> : </td><td> <input type="date" name="d_o_b" required> </td></tr>
+                        <tr><td>4. Sex </td><td> : </td><td> <input type="radio" name="sex" value="Male"> Male <input type="radio" name="sex" value="Female"> Female </td></tr>
+                        <tr><td>5. Address </td><td> : </td><td> <input type="text" name="address" placeholder="eg: No.112/1A, Maharagama " size="30" required> </td></tr>
+                        <tr><td>6. NIC Number </td><td> : </td><td> <input type="text" name="nic" maxlength="12" placeholder="eg: 99xxxxxxxV/2000xxxxxxxV" size="30"> </td></tr>
+                        <tr><td>7. Mobile Number </td><td> : </td><td> <input type="tel" name="mobile" maxlength="10" pattern="[0-9]{10}" placeholder="10 Digit Number" size="30"> </td></tr>
+                        <tr><td>8. Home Phone </td><td> : </td><td> <input type="tel" name="home" maxlength="10" pattern="[0-9]{10}" placeholder="10 Digit Number" size="30"> </td></tr>
+                        <tr><td>9. Email </td><td> : </td><td> <input type="email" name="email" placeholder="eg: example@mail.com" size="30"> </td></tr>
+                        <tr><td>10. History/Symptoms </td><td> : </td><td> <input type="text" name="hx" placeholder="eg: Fever x 5d" size="30"> </td></tr>
+                        <tr><td>11. Past History </td><td> : </td><td> <input type="text" name="pasthx" placeholder="eg: DM+ HT+" size="30"> </td></tr>
+                        <tr><td>12. Allergy History </td><td> : </td><td> <input type="text" name="allergy" placeholder="eg: Penicillin Allergy" size="30"> </td></tr>
+                        <tr><td>13. Investigation Results </td><td> : </td><td> <input type="text" name="ix" placeholder="eg: PLT = 30,000" size="30"> </td></tr>
+                        <tr><td>14. Management/Treatment </td><td> : </td><td> <input type="text" name="mx" placeholder="eg: Dengue Ag + ve" size="30"> </td></tr>
+                        <tr><td>15. Special Notes </td><td> : </td><td> <input type="text" name="notes" placeholder="eg: Vision Impairment" size="30"> </td></tr>
+                    </table>
+                </fieldset>
+                <br>
+                <input type="button" onclick="alert('Warning!!! You will loose your typed Data')" value="New">
+                <input type="reset" onclick="alert('Warning!!! This will reset your typed Data')">
+                <input type="submit" value="Submit">
+            </section>
+
+            <aside id="sidebar-r" style="float:right">
+                <img src="Image/ad1.gif" alt="ad1" style="position:absolute">
+            </aside>
         </div>
+        
         <footer>
-            <table style="width:100%;text-align:center;position:absolute">
+            <table style="width:100%;text-align:center;position:absolute;width:100%">
                 <tr><td colspan=3 style="font-family:calibri;color:whitesmoke;font-weight:500"> Copyright @ MSc in Biomedical Informatics (7<sup>th</sup> Batch) <br> Postgraduate Institute of Medicine <br> Colombo </td></tr>
                 <tr><td style="width:33%"> </td>
                     <td style="width:34%">         
