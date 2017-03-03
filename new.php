@@ -129,9 +129,9 @@ if ($_SESSION['authuser'] == 2) {
                 <h3> New Patient </h3>
                 <fieldset> 
                     <table>
-                        <tr><td width="250px">1. First Name* </td><td> : </td><td> <input type="text" name="f_name" placeholder="eg: Wilbert" size="30" required> </td></tr>
-                        <tr><td>2. Last Name* </td><td> : </td><td> <input type="text" name="l_name_name" placeholder="eg: Silva" size="30" required> </td></tr>
-                        <tr><td>3. Date of Birth </td><td> : </td><td> <input type="date" name="d_o_b" required> </td></tr>
+                        <tr><td width="250px">1. First Name* </td><td> : </td><td> <input type="text" name="fname" placeholder="eg: Wilbert" size="30" required> </td></tr>
+                        <tr><td>2. Last Name* </td><td> : </td><td> <input type="text" name="lname" placeholder="eg: Silva" size="30" required> </td></tr>
+                        <tr><td>3. Date of Birth </td><td> : </td><td> <input type="date" name="dob" required> </td></tr>
                         <tr><td>4. Sex </td><td> : </td><td> <input type="radio" name="sex" value="Male"> Male <input type="radio" name="sex" value="Female"> Female </td></tr>
                         <tr><td>5. Address </td><td> : </td><td> <input type="text" name="address" placeholder="eg: No.112/1A, Maharagama " size="30" required> </td></tr>
                         <tr><td>6. NIC Number </td><td> : </td><td> <input type="text" name="nic" maxlength="12" placeholder="eg: 99xxxxxxxV/2000xxxxxxxV" size="30"> </td></tr>
@@ -142,8 +142,9 @@ if ($_SESSION['authuser'] == 2) {
                         <tr><td>11. Past History </td><td> : </td><td> <input type="text" name="pasthx" placeholder="eg: DM+ HT+" size="30"> </td></tr>
                         <tr><td>12. Allergy History </td><td> : </td><td> <input type="text" name="allergy" placeholder="eg: Penicillin Allergy" size="30"> </td></tr>
                         <tr><td>13. Investigation Results </td><td> : </td><td> <input type="text" name="ix" placeholder="eg: PLT = 30,000" size="30"> </td></tr>
-                        <tr><td>14. Management/Treatment </td><td> : </td><td> <input type="text" name="mx" placeholder="eg: Dengue Ag + ve" size="30"> </td></tr>
-                        <tr><td>15. Special Notes </td><td> : </td><td> <input type="text" name="notes" placeholder="eg: Vision Impairment" size="30"> </td></tr>
+                        <tr><td>14. Diagnosis </td><td> : </td><td> <input type="text" name="dd" placeholder="eg: Dengue Fever" size="30"> </td></tr>
+                        <tr><td>15. Management/Treatment </td><td> : </td><td> <input type="text" name="mx" placeholder="eg: Dengue Ag + ve" size="30"> </td></tr>
+                        <tr><td>16. Special Notes </td><td> : </td><td> <input type="text" name="notes" placeholder="eg: Vision Impairment" size="30"> </td></tr>
                     </table>
                 </fieldset>
                 <br>
