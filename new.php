@@ -27,150 +27,74 @@ if ($_SESSION['authuser'] == 2) {
         <!--script src="JS/javascript.js"></script-->
         <title> ABC Hospital OPD - New Patient </title>
         <style>
-            td{
+            td {
                 font-family: calibri;
             }
-            fieldset{
+            fieldset {
                 background: rgba(153, 204, 255, 0.2);
                 border-radius:6px 6px 6px 6px;
             }
         </style>
+<!--        <script>
+            function confirmBox() {
+                confirm("Are you sure? This will create a new entry.!");
+            }
+        </script>-->
     </head>
 
     <body>
-        <header>
-            <!--Div for Hospital Logo-->
-            <div id="logo-hospital">
-                <a href="index.php"><img id="img-hospital" alt="Hospital Logo" src="Image\hospital.png" style="float:left"></a>				
-            </div>
-            
-            <!--Div for OPD Logo-->
-            <div id="logo-opd">
-                <img id="img-opd" src="Image\logo.png" alt="OPD Logo" style="float:right;padding-top:5px">
-            </div>
-            
-            <!--Text to Display User Information on right-top corner-->
-            <p style="color:white;font-size:16px;text-align:right;padding-right:5px;margin:0px"> 
-                <?php
-                //If the User is logged In -> Display "Username", Otherwise -> Display "Not Logged In"
-                if ($_SESSION['authuser'] == 0) {
-                    echo 'User : Not Logged In';
-                }
-                if ($_SESSION['authuser'] == 1) {
-                    echo 'User : ' . $_SESSION['username'];
-                }
-                if ($_SESSION['authuser'] == 2) {
-                    echo 'User : Not Logged In';
-                }
-                ?>
-            </p>
-        </header>
+        <?php
+        //Header
+        require_once 'headerInc.php';
 
-        <nav>
-            <!--Unordered List for Horizontal Navigation Menu-->
-            <ul id="navmenu">
-                <li class="nav" style="float:left;padding-left:25px;"><a href="index.php"> &#127968; HOME</a></li>
-                <li class="dropdown"style="float:left"><a href="javascript:void(0)" class="dropbtn"> &#128113; PATIENT </a>
-                    <div class="dropdown-content">
-                        <a href="new.php"> &#127381; NEW PATIENT </a>
-                        <a href="search.php"> &#128269; SEARCH PATIENT </a>
-                    </div></li>
-                <li class="dropdown" style="float:left"><a href="javascript:void(0)" class="dropbtn"> &#127760; WEB LINKS</a>
-                    <div class="dropdown-content">
-                        <a href="http://health.gov.lk/" target="_blank"> &#10010; MINISTRY OF HEALTH </a>
-                        <a href="http://www.epid.gov.lk/" target="_blank"> &#128137; EPID UNIT</a>
-                        <a href="http://www.fhb.health.gov.lk/" target="_blank"> &#128106; FHB </a>
-                        <a href="http://pgim.cmb.ac.lk/" target="_blank"> &#9877; PGIM </a>
-                    </div></li>
-                <li class="nav" style="float:left"><a href="about.php"> &#128107; ABOUT US </a></li>
-                <li class="nav" style="float:left"><a href="contact.php"> &#128241; CONTACT </a></li>
-                <li class="nav" style="float:right;padding-right:25px"><a href="login.php"> &#128100; 
-                        <?php
-                        // to show log in or out according to the whether logged in or not
-                        if ($_SESSION['authuser'] == 0) {
-                            echo 'LOG IN';
-                        }
-                        if ($_SESSION['authuser'] == 1) {
-                            echo 'LOG OUT';
-                        }
-                        if ($_SESSION['authuser'] == 2) {
-                            echo 'LOG IN';
-                        }
-                        ?> </a></li>
-                <li class="nav" style="float:right"><a href="register.php"> &#128100; REGISTER </a></li>
-            </ul>
-        </nav>
-        
+        //Horizontal Navigation Bar
+        require_once 'navInc.php';
+        ?>
+
         <!--Div for Sidebar on Left + Middle Section + Sidebar on Right-->
         <div style="position:relative">
-            <aside id="sidebar-l" style="float:left">
-                <br>
-                <h4 style="text-align:center" class="asideheading"> Related Links </h4>
-                <ul style="list-style-image:url('Image/bullet.gif');line-height:25px">
-                    <li class="aside"> <a href="http://www.health.gov.lk/" target="_blank"> Ministry of Health </a></li>
-                    <li class="aside"> <a href="http://www.epid.gov.lk/" target="_blank"> Epidemiology Unit </a></li>
-                    <li class="aside"> <a href="http://www.fhb.health.gov.lk/" target="_blank"> Family Health Bureau </a></li>
-                    <li class="aside"> <a href="http://www.malariacampaign.gov.lk/" target="_blank"> Anti-malaria Campaign </a></li>
-                    <li class="aside"> <a href="http://www.nptccd.health.gov.lk/" target="_blank"> Tuberculosis Control Programme </a></li>
-                    <li class="aside"> <a href="http://www.pgim.cmb.ac.lk/" target="_blank"> PGIM </a></li>
-                </ul>
-                <br>
-                <h4 style="text-align:center" class="asideheading"> Useful Links </h4>
-                <ul style="list-style-image:url('Image/bullet.gif');line-height:25px">
-                    <li class="aside"> <a href="https://www.google.lk" target="_blank"> Google </a></li>
-                    <li class="aside"> <a href="https://www.yahoo.com" target="_blank"> Yahoo! </a></li>
-                    <li class="aside"> <a href="https://www.wikipedia.org" target="_blank"> Wikipedia </a></li>
-                    <li class="aside"> <a href="https://www.facebook.com" target="_blank"> Facebook </a></li>
-                    <li class="aside"> <a href="https://www.twitter.com" target="_blank"> Twitter </a></li>
-                </ul>
-            </aside>
+            <?php
+            //Left Aside
+            require_once 'asideLeftInc.php';
+            ?>
 
             <section style="padding-left:10px;padding-right:10px">
-                <h3> New Patient </h3>
-                <fieldset> 
-                    <table>
-                        <tr><td width="250px">1. First Name* </td><td> : </td><td> <input type="text" name="fname" placeholder="eg: Wilbert" size="30" required> </td></tr>
-                        <tr><td>2. Last Name* </td><td> : </td><td> <input type="text" name="lname" placeholder="eg: Silva" size="30" required> </td></tr>
-                        <tr><td>3. Date of Birth </td><td> : </td><td> <input type="date" name="dob" required> </td></tr>
-                        <tr><td>4. Sex </td><td> : </td><td> <input type="radio" name="sex" value="Male"> Male <input type="radio" name="sex" value="Female"> Female </td></tr>
-                        <tr><td>5. Address </td><td> : </td><td> <input type="text" name="address" placeholder="eg: No.112/1A, Maharagama " size="30" required> </td></tr>
-                        <tr><td>6. NIC Number </td><td> : </td><td> <input type="text" name="nic" maxlength="12" placeholder="eg: 99xxxxxxxV/2000xxxxxxxV" size="30"> </td></tr>
-                        <tr><td>7. Mobile Number </td><td> : </td><td> <input type="tel" name="mobile" maxlength="10" pattern="[0-9]{10}" placeholder="10 Digit Number" size="30"> </td></tr>
-                        <tr><td>8. Home Phone </td><td> : </td><td> <input type="tel" name="home" maxlength="10" pattern="[0-9]{10}" placeholder="10 Digit Number" size="30"> </td></tr>
-                        <tr><td>9. Email </td><td> : </td><td> <input type="email" name="email" placeholder="eg: example@mail.com" size="30"> </td></tr>
-                        <tr><td>10. History/Symptoms </td><td> : </td><td> <input type="text" name="hx" placeholder="eg: Fever x 5d" size="30"> </td></tr>
-                        <tr><td>11. Past History </td><td> : </td><td> <input type="text" name="pasthx" placeholder="eg: DM+ HT+" size="30"> </td></tr>
-                        <tr><td>12. Allergy History </td><td> : </td><td> <input type="text" name="allergy" placeholder="eg: Penicillin Allergy" size="30"> </td></tr>
-                        <tr><td>13. Investigation Results </td><td> : </td><td> <input type="text" name="ix" placeholder="eg: PLT = 30,000" size="30"> </td></tr>
-                        <tr><td>14. Diagnosis </td><td> : </td><td> <input type="text" name="dd" placeholder="eg: Dengue Fever" size="30"> </td></tr>
-                        <tr><td>15. Management/Treatment </td><td> : </td><td> <input type="text" name="mx" placeholder="eg: Dengue Ag + ve" size="30"> </td></tr>
-                        <tr><td>16. Special Notes </td><td> : </td><td> <input type="text" name="notes" placeholder="eg: Vision Impairment" size="30"> </td></tr>
-                    </table>
-                </fieldset>
-                <br>
-                <input type="button" onclick="alert('Warning!!! You will loose your typed Data')" value="New">
-                <input type="reset" onclick="alert('Warning!!! This will reset your typed Data')">
-                <input type="submit" value="Submit">
+                <h3> &#127381; New Patient </h3>
+                <form action="confirm.php" method="POST">
+                    <fieldset>
+                        <p> Please fill following details as given in examples. </p>
+                        <table>
+                            <tr><td width="250px">1. Title </td><td> : </td><td> <select name="title" autofocus> <option value="Mr">Mr</option> <option value="Mrs">Mrs</option> <option value="Miss">Miss</option> <option value="Mast">Mast</option> <option value="Baby">Baby</option> <option value="Dr">Dr</option> <option value="Rev">Rev</option> </select> </td></tr>
+                            <tr><td>2. Initials* </td><td> : </td><td> <input type="text" name="initials" pattern="[A-Z]{1,10}" placeholder="eg: WAD" title="CAPITAL Letters ONLY, No Spaces, Max = 10" size="30" required> </td></tr>
+                            <tr><td>3. Names Denoted by Initials* </td><td> : </td><td> <input type="text" name="othernames" pattern="[A-Za-z ]{1,45}" placeholder="eg: Wasala Arachchige Don" title="Capital or Simple Letters, Spaces Only, Please fill First Letter of each Name Should in Capital,  Max = 45" size="30" required> </td></tr>
+                            <tr><td>4. Last Name* </td><td> : </td><td> <input type="text" name="lname" pattern="[A-Z][A-Za-z]{1,45}" placeholder="eg: Silva" title="Capital or Simple Letters Only, FIRST Letter MUST be Capital, No Spaces, Max = 45" size="30" required> </td></tr>
+                            <tr><td>5. Date of Birth* </td><td> : </td><td> <input type="date" name="dob" placeholder="Eg: 1970-01-01"required> </td></tr>
+                            <tr><td>6. Sex* </td><td> : </td><td> <input type="radio" name="sex" value="Male" required> Male <input type="radio" name="sex" value="Female" required> Female </td></tr>
+                            <tr><td>7. Address </td><td> : </td><td> <input type="text" name="home" placeholder="eg: No.112/1A" title="Address Line 01" size="30"> </td></tr>
+                                        <tr><td></td><td> : </td><td> <input type="text" name="street" placeholder="eg: Pubudu Mawatha " title="Address Line 02" size="30"> </td></tr>
+                                        <tr><td></td><td> : </td><td> <input type="text" name="city" placeholder="eg: Maharagama" title="Address Line 03" size="30"> </td></tr>
+                            <tr><td>8. NIC Number </td><td> : </td><td> <input type="text" name="nic" pattern="\d{9}[VvXx]|\d{11}[VvXx]" placeholder="eg: 99xxxxxxxV/2000xxxxxxxV" title="10 or 12 Length Number, Last Character Must be V or X" size="30"> </td></tr>
+                            <tr><td>9. Mobile Number </td><td> : </td><td> <input type="tel" name="mobile" pattern="07[0-9]{8}" placeholder="eg: 0777123456" title="10 Digit Number, Start with 07xxxxxxxx" size="30"> </td></tr>
+                            <tr><td>10. Home Phone </td><td> : </td><td> <input type="tel" name="phone" pattern="0[0-9]{9}" placeholder="eg: 0112123456" title="10 Digit Number, Start with 0xxxxxxxxx" size="30"> </td></tr>
+                            <tr><td>11. Email </td><td> : </td><td> <input type="email" name="email" placeholder="eg: example@mail.com" size="30"> </td></tr>
+                        </table>
+                    </fieldset>
+                    <p> Fields marked with * are mandatory. </p>
+                    <a href="help.php"> <input type="button" name="help" value="Instructions"></a>
+                    <input type="reset" onclick="return confirm('Are you sure you want to RESET the data.?')">
+                    <input type="submit" value="Submit">
+                </form>
             </section>
 
-            <aside id="sidebar-r" style="float:right">
-                <img src="Image/ad1.gif" alt="ad1" style="position:absolute">
-            </aside>
+            <?php
+            //Right Aside
+            require_once 'asideRightInc.php';
+            ?>
         </div>
-        
-        <footer>
-            <table style="width:100%;text-align:center;position:absolute;width:100%">
-                <tr><td colspan=3 style="font-family:calibri;color:whitesmoke;font-weight:500"> Copyright @ MSc in Biomedical Informatics (7<sup>th</sup> Batch) <br> Postgraduate Institute of Medicine <br> Colombo </td></tr>
-                <tr><td style="width:33%"> </td>
-                    <td style="width:34%">         
-                        <a href="https://www.google.lk/" target="_blank"><img src="Image/google.png" alt="Google Icon" style="width:24px;height:24px"></a>
-                        <a href="https://yahoo.com/" target="_blank"><img src="Image/yahoo.png" alt="Yahoo! Icon" style="width:24px;height:24px"></a>
-                        <a href="https://www.wikipedia.org/" target="_blank"><img src="Image/wiki.png" alt="Wikipedia Icon" style="width:24px;height:24px"></a>
-                        <a href="https://www.facebook.com/" target="_blank"><img src="Image/fb.png" alt="Facebook Icon" style="width:24px;height:24px"></a>
-                        <a href="https://twitter.com/" target="_blank"><img src="Image/twitter.png" alt="Twitter Icon" style="width:24px;height:24px"></a>
-                        <a href="https://www.youtube.com/" target="_blank"><img src="Image/youtube.png" alt="YouTube Icon" style="width:24px;height:24px"></a></td>
-                    <td style="width:33%">  </td></tr>
-            </table>
-        </footer>
+
+        <?php
+        //Footer
+        require_once 'footerInc.php';
+        ?>
     </body>
 </html>
